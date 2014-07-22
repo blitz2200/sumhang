@@ -18,7 +18,7 @@
              });
              $routeProvider.when('/register', {
                  templateUrl: 'register.html',
-                 controller: function ($scope) {
+                 controller: function ($scope, $http) {
                 	$scope.name = '';
 	                $scope.password = '';
 	                $scope.nick = '';
@@ -28,28 +28,23 @@
 	                $scope.pushmsg = '';
 	                $scope.invitemsg = '';
                 	$scope.submit = function(){
-                		 alert($scope.name+$scope.password+$scope.nick+$scope.birth+$scope.gender+$scope.photo+$scope.pushmsg+$scope.invitemsg);
-                         $http({
-					         'url' : '/json/addUser',
-					         'method' : 'POST',
-					         'headers': {'Content-Type' : 'application/json'},
-					         'data' : {
-	                             id: $scope.id,
-	                             name: $scope.name,
-	                             password: $scope.password,
-	                             nick: $scope.nick,
-	                             birth: $scope.birth,
-	                             gender: $scope.gender,
-	                             photo: $scope.photo,
-	                             push: $scope.push,
-	                             invite: $scope.invite
-	                         }
-					     }).success(function (data) {
-                             location.hash = '/login';
-                         }).error(function (data) {
+                		alert('submit event detected...');
+                		$http({
+                	        'url' : 'addUser.ajax',
+                	        'method' : 'POST',
+                	        'headers': {'Content-Type' : 'application/json'},
+                	        'data' : {'id':$scope.id,
+                	        	'name':$scope.name,
+                	        	'password':$scope.password,
+                	        	'nick':$scope.nick,
+                	        	'gender':$scope.gender,
+                	        	'photo':$scope.photo,
+                	        	'push':$scope.pushmsg,
+                	        	'invite':$scope.invitemsg}
+                	    }).error(function (data) {
                              $scope.login = '';
                              $scope.password = '';
-                             alert('가입 실패');
+                             alert('fail');
                         });
                 	 };
                  }

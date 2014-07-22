@@ -1,14 +1,20 @@
 package net.bit.sumhangtest;
 
+import javax.servlet.http.HttpServletRequest;
+
+import net.bit.sumhang.domain.UserVO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,15 +30,20 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		
+	public String home(HttpRequest request) {
+		HttpServletRequest httpRequest = (HttpServletRequest)request;
+		String servletPath = httpRequest.getServletPath();
+		System.out.println("Requested servletPath: "+servletPath);
+		System.out.println("home method invoked...");
 		return "home";
 	}
 	
-	@RequestMapping(value = "json/addUser.json", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String addNewElement(@RequestBody String userItem){
+	@RequestMapping(value = "/addUser")
+	public @ResponseBody UserVO addUser(@RequestBody UserVO user){
 		System.out.println("addUser method invoked...");
-		return "home";
+		System.out.println(user);
+		
+		return user;
 	}
 	
 }
