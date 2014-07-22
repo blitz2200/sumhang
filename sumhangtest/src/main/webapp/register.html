@@ -1,0 +1,63 @@
+<div class="container">
+    <h1>Register</h1>
+    <form ng-submit="submit()">
+        <label>ID</label>
+        <input type="text" ng-model="id">
+        <label>Name</label>
+        <input type="text" ng-model="name">
+        <label>Password</label>
+        <input type="password" ng-model="password">
+        <label>Confirm Password</label>
+        <input type="password">
+        <label>Nick</label>
+        <input type="text" ng-model="nick">
+        <label>Birth</label>
+        <input type="text" ng-model="birth" id="datepicker">
+		<fieldset data-role="controlgroup">
+		<label>Gender</label>
+			<label for="male">
+			<input type="radio" name="gender" id="male" value="male" ng-model="gender">
+			Male</label>
+			<label for="female">
+			<input type="radio" name="gender" id="female" value="female" ng-model="gender">
+			Female</label>	
+		</fieldset>
+        <label>Photo</label>
+        <input type="file" ng-model="photo">
+        
+        <fieldset data-role="controlgroup">
+        <label>Push Msg Acceptance</label>
+			<label for="accpetmsg">
+			<input type="radio" name="pushmsg" id="accpetmsg" value="yes" ng-model="pushmsg">
+			Accept</label>
+			<label for="denymsg">
+			<input type="radio" name="pushmsg" id="denymsg" value="no" ng-model="pushmsg">	
+			Deny</label>
+		</fieldset>
+		
+        <fieldset data-role="controlgroup">
+        <label>Invite Msg Acceptance</label>
+			<label for="accpetInvite">
+			<input type="radio" name="invitemsg" id="accpetivt" value="yes" ng-model="invitemsg">
+			Accept</label>
+			<label for="denyInvite">
+			<input type="radio" name="invitemsg" id="denyivt" value="no" ng-model="invitemsg">	
+			Deny</label>
+		</fieldset>
+        <br>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Sign up" />
+        <a class="btn" href="#/login">Login</a>
+    </form>
+</div>
+<script>
+$(function() {
+    $( "#datepicker" ).datepicker({
+        dateFormat : 'mm/dd/yy',
+        changeMonth : true,
+        changeYear : true,
+        yearRange: '-100y:c+nn',
+        maxDate: '-1d'
+    });
+});
+</script>

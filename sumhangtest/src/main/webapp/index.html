@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="sumhang">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sumhang Basic</title>
+    <link rel="stylesheet" href="resources/cs/bootstrap.css" />
+    <link rel="stylesheet" href="resources/cs/jquery-ui.min.css" />
+    <script src="resources/js/jquery-1.11.1.min.js"></script>
+    <script src="resources/js/jquery-ui.min.js"></script>
+    <script src="resources/js/angular.min.js"></script>
+    <script>
+        app = angular.module('sumhang', [], function ($routeProvider) {
+        	 $routeProvider.when('/login', {
+                 templateUrl: 'login.html',
+                 controller: function ($scope, $http) {
+                	 
+                 }
+             });
+             $routeProvider.when('/register', {
+                 templateUrl: 'register.html',
+                 controller: function ($scope) {
+                	$scope.name = '';
+	                $scope.password = '';
+	                $scope.nick = '';
+	                $scope.birth = '';
+	                $scope.gender = '';
+	                $scope.photo = '';
+	                $scope.pushmsg = '';
+	                $scope.invitemsg = '';
+                	$scope.submit = function(){
+                		 alert($scope.name+$scope.password+$scope.nick+$scope.birth+$scope.gender+$scope.photo+$scope.pushmsg+$scope.invitemsg);
+                         $http({
+					         'url' : '/json/addUser',
+					         'method' : 'POST',
+					         'headers': {'Content-Type' : 'application/json'},
+					         'data' : {
+	                             id: $scope.id,
+	                             name: $scope.name,
+	                             password: $scope.password,
+	                             nick: $scope.nick,
+	                             birth: $scope.birth,
+	                             gender: $scope.gender,
+	                             photo: $scope.photo,
+	                             push: $scope.push,
+	                             invite: $scope.invite
+	                         }
+					     }).success(function (data) {
+                             location.hash = '/login';
+                         }).error(function (data) {
+                             $scope.login = '';
+                             $scope.password = '';
+                             alert('가입 실패');
+                        });
+                	 };
+                 }
+             });
+            $routeProvider.otherwise({
+                redirectTo: '/login'
+            });
+        });
+        
+    </script>
+</head>
+<body ng-view>
+
+</body>
+</html>
